@@ -1,0 +1,6 @@
+.env
+
+/node_modules
+
+/agri-ecommerce-frontend
+/agri-ecommerce-frontend/node_modules
