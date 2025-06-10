@@ -1,0 +1,18 @@
+/* Full-width content when sidebar is hidden */
+.dashboard-container.hide-sidebar .main-content {
+  width: 100%;
+}
+
+/* Optional: Reduce sidebar width for smaller layout */
+.sidebar {
+  width: 180px;
+  min-height: 100vh;
+  background-color: #343a40;
+  color: white;
+  padding: 1rem;
+}
+
+.main-content {
+  flex-grow: 1;
+  padding: 1.5rem;
+}
