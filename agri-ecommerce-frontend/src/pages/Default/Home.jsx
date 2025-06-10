@@ -173,10 +173,10 @@ const Home = () => {
           </p>
           <p>
             <a href="/terms" className="text-light me-3">
-              Terms of Service
+              Terms of Service!
             </a>
             <a href="/privacy" className="text-light">
-              Privacy Policy
+              Privacy Policy..
             </a>
           </p>
         </div>
