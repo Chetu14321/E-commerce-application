@@ -8,6 +8,8 @@ import { toast } from "react-toastify";
 const Home = () => {
   const [products, setProducts] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
+  const [selectedCategory, setSelectedCategory] = useState("");
+  const [priceRange, setPriceRange] = useState({ min: "", max: "" });
   const [currentPage, setCurrentPage] = useState(1);
   const productsPerPage = 8;
 
@@ -43,7 +45,7 @@ const Home = () => {
     const token = localStorage.getItem("token");
 
     try {
-      const response = await axios.post(
+      await axios.post(
         "/api/cart/add",
         { productId, quantity },
         {
@@ -59,43 +61,87 @@ const Home = () => {
     }
   };
 
-  // Filter by search term
-  const filteredProducts = products.filter((product) =>
-    product.name.toLowerCase().includes(searchTerm.toLowerCase())
-  );
+  // Filter products
+  const filteredProducts = products.filter((product) => {
+    const matchesSearch = product.name.toLowerCase().includes(searchTerm.toLowerCase());
+    const matchesCategory = selectedCategory ? product.category === selectedCategory : true;
+    const matchesMinPrice = priceRange.min ? product.price >= parseInt(priceRange.min) : true;
+    const matchesMaxPrice = priceRange.max ? product.price <= parseInt(priceRange.max) : true;
 
-  // Pagination logic
+    return matchesSearch && matchesCategory && matchesMinPrice && matchesMaxPrice;
+  });
+
+  // Pagination
   const indexOfLastProduct = currentPage * productsPerPage;
   const indexOfFirstProduct = indexOfLastProduct - productsPerPage;
   const currentProducts = filteredProducts.slice(indexOfFirstProduct, indexOfLastProduct);
   const totalPages = Math.ceil(filteredProducts.length / productsPerPage);
 
+  const uniqueCategories = [...new Set(products.map((p) => p.category))];
+
   return (
     <div className="container py-5">
-      {/* Heading and Search */}
-      <div className="d-flex flex-wrap justify-content-between align-items-center mb-5">
-        <div className="text-center text-md-start">
-          <h1 className="display-5 fw-bold text-success">🌿 Welcome to Agri Mart</h1>
-          <p className="text-muted fs-5">Shop top-quality agricultural products at the best prices.</p>
+      {/* Header and Search */}
+      <div className="d-flex flex-wrap justify-content-between align-items-center mb-4">
+        <div>
+          <h1 className="display-5 fw-bold text-success">🌿 Agri Mart</h1>
+          <p className="text-muted fs-5">Find the best agricultural products easily.</p>
         </div>
-        <div className="mt-3 mt-md-0">
-          <input
-            type="text"
-            placeholder="Search products..."
-            className="form-control"
-            style={{ maxWidth: "300px" }}
-            value={searchTerm}
+        <input
+          type="text"
+          placeholder="Search products..."
+          className="form-control"
+          style={{ maxWidth: "300px" }}
+          value={searchTerm}
+          onChange={(e) => {
+            setSearchTerm(e.target.value);
+            setCurrentPage(1);
+          }}
+        />
+      </div>
+
+      {/* Filters */}
+      <div className="row mb-4 g-3">
+        <div className="col-sm-6 col-md-4">
+          <select
+            className="form-select"
+            value={selectedCategory}
             onChange={(e) => {
-              setSearchTerm(e.target.value);
-              setCurrentPage(1); // Reset to page 1 when searching
+              setSelectedCategory(e.target.value);
+              setCurrentPage(1);
             }}
+          >
+            <option value="">All Categories</option>
+            {uniqueCategories.map((cat, idx) => (
+              <option key={idx} value={cat}>
+                {cat}
+              </option>
+            ))}
+          </select>
+        </div>
+        <div className="col-sm-3 col-md-2">
+          <input
+            type="number"
+            placeholder="Min ₹"
+            className="form-control"
+            value={priceRange.min}
+            onChange={(e) => setPriceRange({ ...priceRange, min: e.target.value })}
+          />
+        </div>
+        <div className="col-sm-3 col-md-2">
+          <input
+            type="number"
+            placeholder="Max ₹"
+            className="form-control"
+            value={priceRange.max}
+            onChange={(e) => setPriceRange({ ...priceRange, max: e.target.value })}
           />
         </div>
       </div>
 
       {/* Products */}
       {currentProducts.length === 0 ? (
-        <p className="text-center text-muted">No products found.</p>
+        <p className="text-center text-muted">No products match your filters.</p>
       ) : (
         <div className="row g-4">
           {currentProducts.map((product) => (
@@ -109,7 +155,8 @@ const Home = () => {
                 />
                 <div className="card-body d-flex flex-column">
                   <h5 className="card-title">{product.name}</h5>
-                  <h6 className="text-success fw-bold mb-3">₹{product.price}</h6>
+                  <h6 className="text-success fw-bold mb-2">₹{product.price}</h6>
+                  <p className="text-muted small mb-2">{product.category}</p>
                   <div className="mt-auto">
                     <button
                       className="btn btn-sm btn-outline-success w-100 mb-2"
@@ -166,17 +213,17 @@ const Home = () => {
       )}
 
       {/* Footer */}
-      <footer className="bg-primary text-white py-4 mt-5">
+      <footer className="bg-success text-white py-4 mt-5 rounded-3">
         <div className="container text-center">
           <p className="mb-0">
             &copy; {new Date().getFullYear()} Agri Mart. All rights reserved.
           </p>
           <p>
             <a href="/terms" className="text-light me-3">
-              Terms of Service!
+              Terms of Service
             </a>
             <a href="/privacy" className="text-light">
-              Privacy Policy..
+              Privacy Policy
             </a>
           </p>
         </div>

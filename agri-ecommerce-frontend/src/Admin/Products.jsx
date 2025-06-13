@@ -153,7 +153,7 @@ const Products = () => {
             value={newProduct.stock}
             onChange={(e) => setNewProduct({ ...newProduct, stock: e.target.value })}
             required
-          />
+          />KG
         </div>
         <div className="mb-3">
           <label className="form-label">Image URL</label>

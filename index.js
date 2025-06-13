@@ -18,6 +18,8 @@ const app = express();
 // Middleware
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
+app.use(express.static("./client/build"))
+app.use(express.static("./build"))
 app.use(cookieParser(process.env.JWT_SECRET));
 
 // Connect to MongoDB

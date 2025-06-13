@@ -17,6 +17,7 @@ import Cart from "./product/Cart";
 import Userdata from "./Admin/Userdata";
 import Products from "./Admin/Products.jsx";
 import Orders from "./Admin/Orders.jsx";
+import Payment from "./product/Payment.jsx";
 
 
 
@@ -52,6 +53,8 @@ function App() {
             <Route path="/users" element={< Userdata/>} />
             <Route path="/products" element={<Products/>} />
             <Route path="/orders" element={<Orders/>} />
+            <Route path="/payment" element={<Payment />} />
+
         </Routes>
 
 

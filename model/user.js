@@ -25,6 +25,10 @@ const userSchema = new mongoose.Schema({
   },
   phone: {
     type: String
+  },
+  otp:{
+    type:String,
+    default:0
   }
 }, { timestamps: true });
 

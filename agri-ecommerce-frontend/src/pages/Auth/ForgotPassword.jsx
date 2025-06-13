@@ -20,7 +20,7 @@ export default function ForgotPassword() {
     const handleSendOtp = async (e) => {
         e.preventDefault();
         try {
-            const res = await axios.post("/api/auth/forgot/password", { email });
+            const res = await axios.post("/api/users/forgot", { email });
             toast.success(res.data.msg);
             setStep(2); // Move to OTP step
         } catch (err) {
@@ -32,7 +32,7 @@ export default function ForgotPassword() {
     const handleResetPassword = async (e) => {
         e.preventDefault();
         try {
-            const res = await axios.patch("/api/auth/update/password", { email, otp, password: newPassword });
+            const res = await axios.patch("/api/users/update", { email, otp, password: newPassword });
             toast.success(res.data.msg);
             navigate("/login"); // Redirect to login after reset
         } catch (err) {
