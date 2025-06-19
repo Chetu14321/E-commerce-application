@@ -43,7 +43,7 @@ export default function ForgotPassword() {
     return (
         <div className="container">
             <div className="row mt-4">
-                <div className="col-md-6 offset-md-3">
+                <div className="col-md-6 offset-md-4">
                     <div className="card">
                         <div className="card-header text-center">
                             <h6 className="display-6 text-secondary">Forgot Password</h6>
