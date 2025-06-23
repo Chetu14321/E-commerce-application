@@ -1,11 +1,8 @@
 const express = require('express');
 const path = require("path");
 const mongoose = require('mongoose');
-const dotenv = require('dotenv');
+const dotenv = require('dotenv').config();
 const cookieParser = require('cookie-parser');
-
-// Load env variables
-dotenv.config();
 
 // Routes
 const userRoutes = require('./router/userRouter');
@@ -54,4 +51,4 @@ app.get("/", (req, res) => {
 
 // Start server
 const PORT = process.env.PORT || 5000;
-app.listen(PORT, () => console.log(`🚀 Server running on port ${PORT}`));
+app.listen(PORT, () => console.log(` Server running on port ${PORT}`));
