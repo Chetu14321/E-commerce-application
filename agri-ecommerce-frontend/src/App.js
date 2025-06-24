@@ -18,6 +18,11 @@ import Userdata from "./Admin/Userdata";
 import Products from "./Admin/Products.jsx";
 import Orders from "./Admin/Orders.jsx";
 import Payment from "./product/Payment.jsx";
+import PrivacyPolicy from "./privacyPolicyList/privacyPolicy.js";
+import TermsAndConditions from "./privacyPolicyList/Terms.js";
+import CancellationPolicy from "./privacyPolicyList/RefundPolicy.js";
+import ShippingPolicy from "./privacyPolicyList/Shipping.js";
+import ContactUs from "./privacyPolicyList/Contact.js";
 
 
 
@@ -55,6 +60,12 @@ function App() {
             <Route path="/orders" element={<Orders/>} />
             <Route path="/payment" element={<Payment />} />
 
+            {/* terms and conditions */}
+            <Route path="/privacy-policy" element={<PrivacyPolicy/>}/>
+            <Route path="/terms" element={<TermsAndConditions/>}/>
+            <Route path="/refund" element={<CancellationPolicy/>}/>
+            <Route path="/shipping" element={<ShippingPolicy/>}/>
+            <Route path="/contact" element={<ContactUs/>}/>
         </Routes>
 
 

@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { useCart } from "../../product/CartContext";
 import useAuth from "../../Hooks/useAuth";
 import { toast } from "react-toastify";
-
+import { Link } from "react-router-dom";
 const Home = () => {
   const [products, setProducts] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
@@ -221,52 +221,48 @@ const Home = () => {
       </div>
 
       {/* Extended Footer */}
-      <footer className="bg-success text-white pt-5 pb-4">
-  <div className="container">
-    <div className="row">
-      {/* About Section */}
-      <div className="col-md-4 mb-4">
-        <h5 className="text-uppercase mb-3">🌾 About Agri Mart</h5>
-        <p className="small">
-          We connect you with fresh, organic agricultural products directly from the farms. Trusted by farmers and loved by consumers across India.
-        </p>
-        <div>
-          <a href="https://facebook.com" className="text-white me-3"><i className="fab fa-facebook-f"></i></a>
-          <a href="https://twitter.com" className="text-white me-3"><i className="fab fa-twitter"></i></a>
-          <a href="https://instagram.com" className="text-white me-3"><i className="fab fa-instagram"></i></a>
+   <footer className="bg-dark text-white mt-5 pt-4 pb-3">
+      <div className="container">
+        <div className="row">
+          {/* About Section */}
+          <div className="col-md-4">
+            <h5>About Agri Mart</h5>
+            <p className="small text-muted">
+              We bring quality agricultural products directly from trusted farms. 100% organic and fresh.
+            </p>
+          </div>
+
+          {/* Quick Links */}
+          <div className="col-md-4">
+            <h5>Quick Links</h5>
+            <ul className="list-unstyled small">
+              <li><Link to="/" className="text-white">Home</Link></li>
+              <li><Link to="/privacy-policy" className="text-white">Privacy Policy</Link></li>
+              <li><Link to="/terms" className="text-white">Terms & Conditions</Link></li>
+              <li><Link to="/refund" className="text-white">Refund Policy</Link></li>
+              <li><Link to="/shipping" className="text-white">Shipping Info</Link></li>
+              <li><Link to="/contact" className="text-white">Contact Us</Link></li>
+            </ul>
+          </div>
+
+          {/* Razorpay Logo */}
+          <div className="col-md-4 text-center">
+            <img
+              src="https://yourcdn.com/rzp-logo.png"
+              alt="Razorpay"
+              height="40"
+            />
+            <p className="small mt-2">Powered by Razorpay</p>
+          </div>
         </div>
+
+        {/* Copyright */}
+        <hr className="border-secondary" />
+        <p className="text-center small mb-0">
+          &copy; {new Date().getFullYear()} Agri Mart. All rights reserved.
+        </p>
       </div>
-
-      {/* Quick Links */}
-      <div className="col-md-4 mb-4">
-        <h5 className="text-uppercase mb-3">Quick Links</h5>
-        <ul className="list-unstyled">
-          <li><a href="/" className="text-white text-decoration-none">🏠 Home</a></li>
-          <li><a href="/about" className="text-white text-decoration-none">ℹ️ About Us</a></li>
-          <li><a href="/products" className="text-white text-decoration-none">🛒 Products</a></li>
-          <li><a href="/contact" className="text-white text-decoration-none">📞 Contact</a></li>
-        </ul>
-      </div>
-
-      {/* Contact & Newsletter */}
-      <div className="col-md-4 mb-4">
-        <h5 className="text-uppercase mb-3">📬 Stay Connected</h5>
-        <p className="small mb-1">Email: support@agrimart.com</p>
-        <p className="small mb-3">Phone: +91 9876543210</p>
-        <form className="d-flex">
-          <input type="email" className="form-control me-2" placeholder="Subscribe to newsletter" />
-          <button className="btn btn-outline-light" type="submit">Subscribe</button>
-        </form>
-      </div>
-    </div>
-
-    <hr className="border-light" />
-
-    <div className="text-center small">
-      &copy; {new Date().getFullYear()} Agri Mart — All rights reserved | Built with ❤️ by AgriTech Team
-    </div>
-  </div>
-</footer>
+    </footer>
 
     </div>
   );
