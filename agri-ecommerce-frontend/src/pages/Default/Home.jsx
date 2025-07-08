@@ -5,6 +5,8 @@ import { useCart } from "../../product/CartContext";
 import useAuth from "../../Hooks/useAuth";
 import { toast } from "react-toastify";
 import { Link } from "react-router-dom";
+import 'bootstrap/dist/css/bootstrap.min.css';
+
 const Home = () => {
   const [products, setProducts] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
@@ -56,7 +58,6 @@ const Home = () => {
       );
       toast.success("Item added to cart successfully!");
       addToCart(product);
-      // navigate("home");
     } catch (error) {
       alert("login first");
       console.error("Error adding to cart:", error);
@@ -80,16 +81,14 @@ const Home = () => {
   const uniqueCategories = [...new Set(products.map((p) => p.category))];
 
   return (
-    <div className="container-fluid py-4 d-flex flex-column min-vh-100% bg-light">
-      {/* Moving Message */}
-      <div className="  text-black py-2 mb-3 text-center">
+    <div className="container-fluid py-4 bg-light min-vh-100">
+      <div className="text-black py-2 mb-3 text-center">
         <marquee behavior="scroll" direction="left" scrollamount="5">
           🌱 Welcome to Agri Mart! — Best deals on fresh & organic farm products. Shop now! 🚜
         </marquee>
       </div>
 
-      <div className="row flex-grow-1">
-        {/* Left Sidebar for Categories */}
+      <div className="row flex-grow-1 row-cols-1 row-cols-md-2">
         <div className="col-md-2 border-end bg-white p-3">
           <h5 className="text-success">Categories</h5>
           <ul className="list-group">
@@ -106,13 +105,12 @@ const Home = () => {
           </ul>
         </div>
 
-        {/* Main Content */}
         <div className="col-md-10">
-          <div className="d-flex flex-wrap justify-content-between align-items-center mb-4">
+          <div className="d-flex flex-column flex-md-row justify-content-between gap-3 mb-4">
             <div className="d-flex align-items-center gap-3">
               <img src="/logo192.png" alt="Agri Mart Logo" width="60" height="60" className="rounded-circle" />
               <div>
-                <h1 className="fw-bold text-success mb-1">Agri Mart</h1>
+                <h1 className="fw-bold text-success mb-1 fs-3 fs-md-1">Agri Mart</h1>
                 <p className="text-muted mb-0">Fresh & Organic. Direct from farms.</p>
               </div>
             </div>
@@ -129,7 +127,6 @@ const Home = () => {
             />
           </div>
 
-          {/* Price Filter */}
           <div className="row mb-4 g-3">
             <div className="col-sm-3">
               <input
@@ -151,13 +148,12 @@ const Home = () => {
             </div>
           </div>
 
-          {/* Products Grid */}
           {currentProducts.length === 0 ? (
             <p className="text-center text-muted">No products match your filters.</p>
           ) : (
             <div className="row g-4">
               {currentProducts.map((product) => (
-                <div className="col-6 col-sm-4 col-md-3" key={product._id}>
+                <div className="col-12 col-sm-6 col-md-4 col-lg-3" key={product._id}>
                   <div className="card h-100 border-0 shadow-sm rounded-4">
                     <img
                       src={product.image || "/placeholder.jpg"}
@@ -169,19 +165,15 @@ const Home = () => {
                       <h5 className="card-title">{product.name}</h5>
                       <h6 className="text-success fw-bold mb-2">₹{product.price}</h6>
                       <p className="text-muted small mb-2">{product.category}</p>
-                      <div className="mt-auto">
+                      <div className="btn-group w-100 mt-auto" role="group">
                         <button
-                          className="btn btn-sm btn-outline-success w-100 mb-2"
+                          className="btn btn-sm btn-outline-success"
                           onClick={() => handleViewDetails(product._id)}
-                        >
-                          View Details
-                        </button>
+                        >View</button>
                         <button
-                          className="btn btn-sm btn-success w-100"
+                          className="btn btn-sm btn-success"
                           onClick={() => handleAddToCart(product)}
-                        >
-                          Add to Cart
-                        </button>
+                        >Add</button>
                       </div>
                     </div>
                   </div>
@@ -190,29 +182,19 @@ const Home = () => {
             </div>
           )}
 
-          {/* Pagination */}
           {totalPages > 1 && (
             <nav className="mt-5">
               <ul className="pagination justify-content-center">
                 <li className={`page-item ${currentPage === 1 ? "disabled" : ""}`}>
-                  <button className="page-link" onClick={() => setCurrentPage((prev) => Math.max(prev - 1, 1))}>
-                    Previous
-                  </button>
+                  <button className="page-link" onClick={() => setCurrentPage((prev) => Math.max(prev - 1, 1))}>Previous</button>
                 </li>
                 {[...Array(totalPages).keys()].map((num) => (
-                  <li
-                    key={num + 1}
-                    className={`page-item ${currentPage === num + 1 ? "active" : ""}`}
-                  >
-                    <button className="page-link" onClick={() => setCurrentPage(num + 1)}>
-                      {num + 1}
-                    </button>
+                  <li key={num + 1} className={`page-item ${currentPage === num + 1 ? "active" : ""}`}>
+                    <button className="page-link" onClick={() => setCurrentPage(num + 1)}>{num + 1}</button>
                   </li>
                 ))}
                 <li className={`page-item ${currentPage === totalPages ? "disabled" : ""}`}>
-                  <button className="page-link" onClick={() => setCurrentPage((prev) => Math.min(prev + 1, totalPages))}>
-                    Next
-                  </button>
+                  <button className="page-link" onClick={() => setCurrentPage((prev) => Math.min(prev + 1, totalPages))}>Next</button>
                 </li>
               </ul>
             </nav>
@@ -220,50 +202,41 @@ const Home = () => {
         </div>
       </div>
 
-      {/* Extended Footer */}
-   <footer className="bg-dark text-white mt-5 pt-4 pb-3">
-      <div className="container">
-        <div className="row">
-          {/* About Section */}
-          <div className="col-md-4">
-            <h5>About Agri Mart</h5>
-            <p className="small text-muted">
-              We bring quality agricultural products directly from trusted farms. 100% organic and fresh.
-            </p>
+      <footer className="bg-dark text-white mt-5 pt-4 pb-3">
+        <div className="container">
+          <div className="row">
+            <div className="col-md-4">
+              <h5>About Agri Mart</h5>
+              <p className="small text-muted">
+                We bring quality agricultural products directly from trusted farms. 100% organic and fresh.
+              </p>
+            </div>
+            <div className="col-md-4">
+              <h5>Quick Links</h5>
+              <ul className="list-unstyled small">
+                <li><Link to="/" className="text-white">Home</Link></li>
+                <li><Link to="/privacy-policy" className="text-white">Privacy Policy</Link></li>
+                <li><Link to="/terms" className="text-white">Terms & Conditions</Link></li>
+                <li><Link to="/refund" className="text-white">Refund Policy</Link></li>
+                <li><Link to="/shipping" className="text-white">Shipping Info</Link></li>
+                <li><Link to="/contact" className="text-white">Contact Us</Link></li>
+              </ul>
+            </div>
+            <div className="col-md-4 text-center">
+              <img
+                src="https://yourcdn.com/rzp-logo.png"
+                alt="Razorpay"
+                height="40"
+              />
+              <p className="small mt-2">Powered by Razorpay</p>
+            </div>
           </div>
-
-          {/* Quick Links */}
-          <div className="col-md-4">
-            <h5>Quick Links</h5>
-            <ul className="list-unstyled small">
-              <li><Link to="/" className="text-white">Home</Link></li>
-              <li><Link to="/privacy-policy" className="text-white">Privacy Policy</Link></li>
-              <li><Link to="/terms" className="text-white">Terms & Conditions</Link></li>
-              <li><Link to="/refund" className="text-white">Refund Policy</Link></li>
-              <li><Link to="/shipping" className="text-white">Shipping Info</Link></li>
-              <li><Link to="/contact" className="text-white">Contact Us</Link></li>
-            </ul>
-          </div>
-
-          {/* Razorpay Logo */}
-          <div className="col-md-4 text-center">
-            <img
-              src="https://yourcdn.com/rzp-logo.png"
-              alt="Razorpay"
-              height="40"
-            />
-            <p className="small mt-2">Powered by Razorpay</p>
-          </div>
+          <hr className="border-secondary" />
+          <p className="text-center small mb-0">
+            &copy; {new Date().getFullYear()} Agri Mart. All rights reserved.
+          </p>
         </div>
-
-        {/* Copyright */}
-        <hr className="border-secondary" />
-        <p className="text-center small mb-0">
-          &copy; {new Date().getFullYear()} Agri Mart. All rights reserved.
-        </p>
-      </div>
-    </footer>
-
+      </footer>
     </div>
   );
 };

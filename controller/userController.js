@@ -251,4 +251,43 @@ exports.updatePassController = async (req, res) => {
 };
 
 
+//upgrade profile 
+
+
+// const User = require('../model/user');
+// const fs = require('fs');
+// const path = require('path');
+// const { StatusCodes } = require('http-status-codes');
+
+// Update user info + optional profile photo
+exports.updateUserProfile = async (req, res) => {
+  try {
+    const userId = req.params.id;
+    const { name, email, mobile } = req.body;
+
+    // Handle profile image (if uploaded)
+    let profileImage = null;
+    if (req.file) {
+      profileImage = req.file.filename;
+    }
+
+    const updateFields = { name, email, mobile };
+    if (profileImage) {
+      updateFields.profileImage = profileImage;
+    }
+
+    const updatedUser = await User.findByIdAndUpdate(userId, updateFields, {
+      new: true,
+      runValidators: true,
+    }).select('-password');
+
+    res.status(StatusCodes.OK).json({
+      msg: 'Profile updated successfully',
+      user: updatedUser,
+    });
+  } catch (err) {
+    res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({ msg: err.message });
+  }
+};
+
 

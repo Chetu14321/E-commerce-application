@@ -23,6 +23,7 @@ import TermsAndConditions from "./privacyPolicyList/Terms.js";
 import CancellationPolicy from "./privacyPolicyList/RefundPolicy.js";
 import ShippingPolicy from "./privacyPolicyList/Shipping.js";
 import ContactUs from "./privacyPolicyList/Contact.js";
+import PaymentSuccess from "./product/Paymentsuccess.jsx";
 
 
 
@@ -66,6 +67,10 @@ function App() {
             <Route path="/refund" element={<CancellationPolicy/>}/>
             <Route path="/shipping" element={<ShippingPolicy/>}/>
             <Route path="/contact" element={<ContactUs/>}/>
+
+
+            <Route path="/payment-success" element={<PaymentSuccess />} />
+
         </Routes>
 
 

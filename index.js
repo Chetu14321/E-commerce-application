@@ -10,6 +10,8 @@ const productRoutes = require('./router/productRouter');
 const orderRoutes = require('./router/orderRouter');
 const cartRoutes = require("./router/cartRouter");
 
+const paymentRoutes=require("./router/payment")
+
 const app = express();
 
 // Middleware
@@ -32,6 +34,8 @@ app.use('/api/users', userRoutes);
 app.use('/api/products', productRoutes);
 app.use('/api/orders', orderRoutes);
 app.use("/api/cart", cartRoutes);
+
+app.use("/api/payment", paymentRoutes);
 
 // // Serve frontend static files
 // app.use(express.static(path.join(__dirname, "build")));

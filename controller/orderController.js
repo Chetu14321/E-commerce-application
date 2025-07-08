@@ -45,6 +45,7 @@ exports.getAllOrdersForUser = async (req, res) => {
     console.log('User ID:', userId);
 
     const orders = await Order.find({ userId }).populate('items.product');
+
     console.log('Orders:', orders);
 
     if (!orders.length) return res.status(404).json({ message: 'No orders found for this user' });
@@ -55,6 +56,7 @@ exports.getAllOrdersForUser = async (req, res) => {
     res.status(400).json({ error: err.message });
   }
 };
+
 
 // Get a single order by ID
 exports.getOrderById = async (req, res) => {

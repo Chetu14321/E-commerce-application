@@ -23,6 +23,11 @@ const userSchema = new mongoose.Schema({
   address: {
     type: String
   },
+  profileImage: {
+  type: String,
+  default: "", // store filename like "profile-12345.png"
+},
+
   phone: {
     type: String
   },
